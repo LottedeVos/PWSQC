@@ -4,7 +4,7 @@
 ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
 ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-## 	 These scripts are related to the manuscript 'Quality Control for Crowdsourced Personal Weather Stations to Enable Operational Rainfall Monitoring' by De Vos et al. (2019), see https://doi.org/10.1029/2019GL083731
+##   These scripts are related to the manuscript 'Quality Control for Crowdsourced Personal Weather Stations to Enable Operational Rainfall Monitoring' by De Vos et al. (2019), see https://doi.org/10.1029/2019GL083731
 
 
  # # # # # # # # # # #
