@@ -60,7 +60,8 @@ for(i in 1:nrow(Meta)){
 	N <- N[order(N$timestamp),] 	# make sure 'N' is chronological 
 	N <- N[which(N$timestamp >= starttime & N$timestamp < endtime),]  # select only observations within the study period	
 
-	Ntimeround <- strptime(cut(c(starttime, N$timestamp), "5 min")[-1], format="%Y-%m-%d %H:%M", tz="GMT")	+ 5*60	# because we apply the filter every 5 min, 'starttime' is included to force start at round 5 min value; 5 minutes are added because cut() rounds down
+	Ntimeround <- strptime(cut(c(starttime, N$timestamp), "5 min")[-1], format="%Y-%m-%d %H:%M", tz=Sys.timezone()) +5*60 # because we apply the filter every 5 min, 'starttime' is included to force start at round 5 min value; 5 minutes are added because cut() rounds down
+	attr(Ntimeround, "tzone") <- "GMT" #because the c() function in the last line translates the time into the local time according to your device. 	
 	Nagg <- setDT(as.data.frame(N$rain_mm))[,lapply(.SD,sum), by=.(Ntimeround)]	# take the sum of observations within the same 5 min interval
 	names(Nagg) <- c("Time", "Rain")    # name-giving is required to merge with the 'Time' column in next line
 	Ncomplete <- merge(as.data.frame(Time), Nagg, all=T)$Rain	# make sure that there is an observation for each timestep
