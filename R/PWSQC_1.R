@@ -21,7 +21,7 @@
 
 
 rm(list=ls())
-require(proj4)	# needed for proj()
+library(geosphere) # to calculate distance bewteen lat/lon coordinates
 
 workingdirectory <- "..."	# pathway to workingdirectory where the R-scripts are located.
 setwd(workingdirectory)
@@ -29,15 +29,12 @@ source("InputFiles/Filtersettings.txt")	# obtain 'range', 'nstat', 'nint', 'HIth
 
 
 Meta <- read.table("InputFiles/metatableAms.txt", header=T, sep=",")
-Meta <- cbind(project(cbind(Meta$lon, Meta$lat),"+proj=stere +lat_0=52.1561605555555 +lon_0=5.38763888888888 +k=0.9999079 +x_0=155000 +y_0=463000 +towgs84=593.16,26.15,478.54 +ellps=bessel",inverse=FALSE), Meta)
-names(Meta)[1:2] <- c("X","Y")	# X and Y are the projected locations in rijksdriehoekscoordinaten in order to determine distances between stations
-
 
  # # Construction of neigbourlist for each station # #
 
 neighbourlist <- vector("list", nrow(Meta)) 
 for(i in 1:nrow(Meta)){
-	dist <- sqrt((Meta$X - Meta$X[i])^2 + (Meta$Y - Meta$Y[i])^2 )	# make a list of distances to all stations including itself
+	dist <- distm(cbind(Meta$lon, Meta$lat), c(Meta$lon[i], Meta$lat[i]), fun = distHaversine)	# make a list of distances to all stations including itself
 	neighbourlist[[i]] <- Meta$id[which(dist > 0 & dist <= range)] }	# select the ID's of stations where the distance is smaller than 'range' but larger than zero to avoid being matched with itself
 
 save(neighbourlist, file=paste0("OutputFolder/neighbourlist_Filtersettings",Filtersettings,".RData"))	# save 'neighbourlist' as list in an R Object 
