@@ -113,7 +113,7 @@ for(i in 1:nrow(Meta)){
 	biascorrection <- biascorrectiontable[,i]
 
 	if(FiltersettingStrict == 'yes'){filtered <- which(is.na(R) == F & is.na(N) == F & FZflag == 0 & HIflag == 0 & SOflag == 0)}
-	if(FiltersettingStrict == 'no' ){filtered <- which(is.na(R) == F & is.na(N) == F & FZflag != -1 & HIflag != -1 & SOflag != -1)}
+	if(FiltersettingStrict == 'no' ){filtered <- which(is.na(R) == F & is.na(N) == F & FZflag != 1 & HIflag != 1 & SOflag != 1)}
 
 	N <- (N*biascorrection)[filtered]
 	R <- R[filtered]
