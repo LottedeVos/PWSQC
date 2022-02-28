@@ -17,7 +17,6 @@
 # Notes:
 # -The output is written in Folder 'OutputFolder', with the label of that combination of Filtersettings. 
 # -When PWSQC_0.R has run the folder "OutputFolder" was created. Make sure this folder exists as the output is written there. 
-# -The project() function assumes locations in the Netherlands, and this function needs to be adjusted for other areas in the world where the rijksdriehoekscoordinaten projection is not approriate. 
 
 
 rm(list=ls())
