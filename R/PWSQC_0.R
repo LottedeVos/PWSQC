@@ -28,6 +28,7 @@
 
 rm(list=ls())
 require(data.table)	# needed for setDT()
+Sys.setenv(TZ="GMT")	# set system time of environment to GMT
 
 workingdirectory <- "..."	# pathway to workingdirectory where the R-scripts are located.
 NfilesFolder <- "..." # pathway to the folder where the weather station timeseries files are located. 
