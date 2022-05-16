@@ -20,11 +20,9 @@
 # With respect to this last point:
 # Initially the code made a projection of the lon and lat locations (in rijksdriehoekscoordinaten) in order to calculate distances between stations in meter. 
 # The projection that was used is appropriate for the Netherlands, but not for other areas in the world. 
-# These lines in the code have been replaced with a function from the geosphere package, which calculates distance between stations directly from their lon and lat locations. 
+# These lines in the code had been replaced with a function from the geosphere package, which calculates distance between stations directly from their lon and lat locations. 
 # The function (distHaversine) assumes a spherical earth, ignoring ellipsoidal effects. The new code is applicable on PWS networks anywhere in the world.
 # Courtesy of Dr. Maarten Reyniers and Eva Beele.
-# distVincentySphere is around 13% faster than distHaversine and checking differences of several thousand distances across Europe gave very small differences. So, distHaversine has been
-# replaced by distVincentySphere.
 # Much faster solution is to use the sf package. This seems always to give -0.1117411% shorter distances, but seems 15 times faster, and has therefore been implemented below.
 # In order to save time, the number of neighbour stations is limited by a maximimum "MaxNrStations", if more nearby stations are available only the closest neighbours are considered. 
 # Courtesy of Dr. Aart Overeem and Niek van Andel.
@@ -55,7 +53,7 @@ LonLat <- cbind(Meta$lon, Meta$lat)
 for(i in 1:nrow(Meta)){
         dist <- as.numeric(st_distance(pnts_sf, pnts_sf[i,])) # make a list of distances to all stations including itself
         distSelected <- dist[which(dist > 0 & dist <= range)]
-        # Determine maximum range of MinNrStations nearest stations in order to select the MinNrStations nearest stations:
+        # Determine maximum range of MaxNrStations nearest stations in order to select the MaxNrStations nearest stations:
         if (length(distSelected) > MaxNrStations)
         {
         	range_max <- max(sort(distSelected)[1:MaxNrStations])
