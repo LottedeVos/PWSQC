@@ -43,7 +43,7 @@ Meta <- read.table("InputFiles/metatableAms.txt", header=T, sep=",")
 
  # # Construction of neigbourlist for each station # #
 
-neighbourlist <- vector("list", nrow(MetaTotal)) 
+neighbourlist <- vector("list", nrow(Meta)) 
 
 pnts <- data.frame(id = Meta$id, lon = Meta$lon, lat = Meta$lat)
 pnts_sf <- st_as_sf(pnts, crs = 4326L, coords = c("lon", "lat")) # crs = 4326L is EPSG:4326. WGS 84 -- WGS84 - World Geodetic System 1984, used in GPS  
